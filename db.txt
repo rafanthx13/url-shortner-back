@@ -1,0 +1,52 @@
+start mysql in ubuntu
+$ service mysql start
+
+CREATE SCHEMA `url_shortner` ;
+
+
+User
++ id
++ username
++ password (hash)
++ name
++ create_date
++ is_active
+
+urls
++ id
++ set_url
++ go_to_url
++ creation_date
++ user_id
+
+
+
+=====
+
+CREATE TABLE `url_shortner`.`user` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `user_type` VARCHAR(45) NULL,
+  `create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`));
+
+
+CREATE TABLE `url_shortner`.`url_links` (
+  `url_id` INT NOT NULL,
+  `actual_url` VARCHAR(180) NOT NULL,
+  `go_to_url` VARCHAR(180) NOT NULL,
+  `user_id` INT NOT NULL,
+  `create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`url_id`),
+  UNIQUE INDEX `actual_url_UNIQUE` (`actual_url` ASC),
+  INDEX `fk_url_links_1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_url_links_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `url_shortner`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+npm install bcrypt jsonwebtoken knex mysql pg passport passport-jwt
