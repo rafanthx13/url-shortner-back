@@ -4,8 +4,7 @@ module.exports = (app) => {
   const { ValidateError } = app.errors.messages;
   const { verifyDTO, exist } = app.errors.functions;
 
-  // ["id", "user_name", "email", "password", "user_type" ]
-  let user_dto = ["user_name", "email", "password", "user_type"];
+  let user_dto = ["user_name", "name", "email", "password"];
 
   function getPasswordHash(password) {
     const salt = bcrypt.genSaltSync(10);
@@ -16,17 +15,17 @@ module.exports = (app) => {
     let [isValid, msg] = verifyDTO(user, user_dto);
     if (!isValid) throw new ValidateError(msg);
 
-    const userInBD = await app
+    const userNameInBD = await app
       .db("user")
       .where({ user_name: user.user_name })
       .first();
-    if (exist(userInBD)) throw new ValidateError(`Invalid Data`);
+    if (exist(userNameInBD)) throw new ValidateError(`Duplicate User Name`);
 
     return app
       .db("user")
       .insert({ ...user, password: getPasswordHash(user.password) })
       .then((id) => {
-        return { user_id: id[0], ...user };
+        return { user_id: id[0]};
       });
   };
 

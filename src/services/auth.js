@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { API_SECRET } = require("../env/env.config.js");
 
 module.exports = (app) => {
+
   const { notExists } = app.errors.functions;
 
   const signin = async (req, res) => {
