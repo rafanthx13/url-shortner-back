@@ -16,7 +16,14 @@ module.exports = (app) => {
       .catch(err => next(err) );
   });
 
+  router.get('/short/:shortUrl', (req, res, next) => {
+    app.services.url.getShortUrl(req.params.shortUrl)
+      .then(result => res.status(200).json(result))
+      .catch(err => next(err) );
+  });
+
   router.post('/', (req, res, next) => {
+    console.log('hre');
     app.services.url.save(req.body)
       .then(result => res.status(201).json(result))
       .catch(err => next(err) );

@@ -4,7 +4,7 @@ module.exports = (app) => {
   const { ValidateError } = app.errors.messages;
   const { verifyDTO, exist } = app.errors.functions;
 
-  let user_dto = ["user_name", "name", "email", "password"];
+  let user_dto = ["user_name", "email", "password"];
 
   function getPasswordHash(password) {
     const salt = bcrypt.genSaltSync(10);

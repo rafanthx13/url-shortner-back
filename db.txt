@@ -128,8 +128,3 @@ G: Generated Column
 
 ===
 
-{
-    "auth": true,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IiQyYiQxMCRTakszbEUvMnpsYUw4alBHdkZqS1F1U05vZGRaWTNybVNkdi5MVXJyZWtXRTdUWWVIWUc0TyIsImlhdCI6MTYzOTg0MDgzOSwiZXhwIjoxNjM5OTI3MjM5fQ.M_wUZ8FaVfBLfC8Gq7QHnu-X0my2e6dnSAnsFV3cSjw",
-    "user_type": null
-}

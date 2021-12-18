@@ -1,12 +1,21 @@
 module.exports = (app) => {
+
   const { ValidateError, DuplicateError, NotFoundError } = app.errors.messages;
   const { verifyDTO, exist, notExists, verifyUpdateDTO } = app.errors.functions;
 
   const table = 'url_links'
 
-  // let url_dto = ["actual_url", "go_to_url",
-  // "user_id"]
-  let url_dto = ["actual_url", "go_to_url"]
+  function generateRandomString(string_length) {
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // 62
+    let result = '';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < string_length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  let url_dto = ["actual_url"]
 
   const getAll = () => {
     return app.db(table).select();
@@ -17,15 +26,41 @@ module.exports = (app) => {
     return app.db(table).where({user_id});
   };
 
+  // getShortUrl
+  const getShortUrl = async (shortUrl) => {
+    let shortUrlInBD = await app.db(table).where({ go_to_url: shortUrl }).first();
+    if (exist(shortUrlInBD)){
+       await app.db('log_access_url').insert({ url_id: shortUrlInBD.url_id });
+       console.log('o que pediur')
+       console.log(shortUrlInBD)
+	   return shortUrlInBD
+    } else {
+		throw new NotFoundError(`Short URL not found`); 
+	}
+  };
+
   const save = async (url) => {
+	if(url.user_id == ''){
+        delete url.user_id;
+	}
     let [isValid, msg] = verifyDTO(url, url_dto);
     if (!isValid) throw new ValidateError(msg);
 
-    const UrlInBD = await app.db(table).where({ actual_url: url.actual_url }).first();
-    if (exist(UrlInBD))
-      throw new DuplicateError(
-        `Url '${url.actual_url}' already exists in the database.`
-      );
+	console.log('foi validado')
+
+    url.go_to_url = generateRandomString(5)
+	console.log('urk_go', url);
+
+    while(true){
+      let UrlInBD = await app.db(table).where({ actual_url: url.go_to_url }).first();
+      if (exist(UrlInBD)){
+        url.go_to_url = generateRandomString(5)
+      } else {
+        break
+      }
+    }
+
+	console.log('passou do while')
 
     return app
       .db(table)
@@ -69,5 +104,5 @@ module.exports = (app) => {
       });
   };
 
-  return { getAll, getByUserId, save, update, remove };
+  return { getAll, getByUserId, getShortUrl, save, update, remove };
 };
