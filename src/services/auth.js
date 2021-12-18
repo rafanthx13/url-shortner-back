@@ -29,7 +29,7 @@ module.exports = (app) => {
     } else {
       res
         .status(400)
-        .send({ auth: false, token: null, message: "Fail in JWT Validation" });
+        .send({ auth: false, token: null, message: "Fail in JWT Validation. Password Invalid" });
     }
   };
 
