@@ -2,12 +2,9 @@ let environment = process.NODE_ENV || 'development'
 
 const dotenv = require('dotenv').config({path: './src/env/env_' + environment + '.env'});
 
-// console.log(process)
-console.log(process.env.PORT)
-
 module.exports = {
-  API_SECRET:   process.env.API_SECRET,
-  PORT: 		process.env.PORT,
+  API_SECRET: process.env.API_SECRET,
+  PORT: 		  process.env.PORT,
   DB_HOST: 		process.env.DB_HOST,
   DB_PORT: 		process.env.DB_PORT,
   DB_NAME: 		process.env.DB_NAME,

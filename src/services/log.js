@@ -9,7 +9,6 @@ module.exports = (app) => {
     return app.db(table).select();
   };
 
-  // Testar se voltar vazio [] o que faz, e
   const getByUrlId =  async (url_id) => {
     return app.db(table).where({url_id});
   };

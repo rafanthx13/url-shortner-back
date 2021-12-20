@@ -15,5 +15,10 @@ module.exports = app => {
     this.message = message;
   }
 
-  return { DuplicateError, ValidateError, NotFoundError }
+  function NotAuthorizedError(message){
+    this.name = "NOT_AUTH_ERROR";
+    this.message = message;
+  }
+
+  return { DuplicateError, ValidateError, NotFoundError, NotAuthorizedError }
 }

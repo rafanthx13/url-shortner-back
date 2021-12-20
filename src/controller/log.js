@@ -17,7 +17,6 @@ module.exports = (app) => {
       .catch((err) => next(err));
   });
 
-  // get by url_id
   router.get("/:id", (req, res, next) => {
     app.services.log
       .getByUrlId(req.params.id)

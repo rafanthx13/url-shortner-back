@@ -7,6 +7,7 @@ module.exports = (app) => {
 
   const { notExists } = app.errors.functions;
 
+  // save user, and hash(password). Return Token from SECRET and UserData (Recover in Passport)
   const signin = async (req, res) => {
     const user = await app
       .db("user")
@@ -20,7 +21,7 @@ module.exports = (app) => {
         .send({ auth: false, token: null, message: "User Invalid" });
 
     if (bcrypt.compareSync(req.body.password, user.password)) {
-      let payload = { id: user.id, password: user.password };
+      let payload = { user_id: user.user_id, password: user.password };
       let jwtOptions = { expiresIn: "24h" }; // expires in 24 hours
       let token = jwt.sign(payload, API_SECRET, jwtOptions);
       res
@@ -33,18 +34,15 @@ module.exports = (app) => {
     }
   };
 
+  // Check Token
   const authenticate = (req, res) => {
     let token = req.headers["authorization"];
     if (token.startsWith("Bearer ")) token = token.slice(7, token.length);
     if (!token)
-      return res
-        .status(400)
-        .send({ auth: false, message: "No token provided." });
+      return res.status(400).send({ auth: false, message: "No token provided." });
     jwt.verify(token, API_SECRET, function (err) {
       if (err)
-        return res
-          .status(400)
-          .send({ auth: false, message: "Failed to authenticate token." });
+        return res.status(400).send({ auth: false, message: "Failed to authenticate token." });
       res.status(200).send({});
     });
   };
