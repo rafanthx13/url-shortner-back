@@ -132,7 +132,7 @@ G: Generated Column
 ============== Ultimos retoques
 
 + Testar Cadastro de usuário [x]
-+ Testar funcionalidades
++ Testar funcionalidades [x]
 + Validar entradasr (URL, Email) e Limitar username [x]
 + Criar Seed e Migration com Knex e saber executar [x]
 + Testse unitários com JEST para a API
