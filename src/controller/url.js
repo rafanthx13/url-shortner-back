@@ -30,8 +30,11 @@ module.exports = (app) => {
       .catch(err => next(err) );
   });
 
-  router.post('/', (req, res, next) => {
-    app.services.url.save(req.body)
+  router.post('/', app.config.passport.authenticate(), (req, res, next) => {
+    let user_id = ''
+    if(req.user)
+      user_id = req.user.user_id
+    app.services.url.save(req.body, user_id)
       .then(result => res.status(201).json(result))
       .catch(err => next(err) );
   });

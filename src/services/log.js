@@ -21,6 +21,9 @@ module.exports = (app) => {
     let [isValid, msg] = verifyDTO(log, log_dto);
     if (!isValid) throw new ValidateError(msg);
 
+    console.log(log.url_id)
+    await app.db('url_links').increment('count').where('url_id', log.url_id)
+
     return app
       .db(table)
       .insert(log)

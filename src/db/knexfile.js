@@ -1,8 +1,6 @@
 const { DB_HOST, DB_PORT, DB_USER, DB_PASS,
 	DB_NAME } = require("../env/env.config.js");
 
-console.log(DB_HOST)
-
 // module.exports = app = {
 module.exports = {
 

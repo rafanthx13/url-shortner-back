@@ -131,12 +131,12 @@ G: Generated Column
 
 ============== Ultimos retoques
 
-+ Testar Cadastro de usuário
++ Testar Cadastro de usuário [x]
 + Testar funcionalidades
-+ Validar entradasr (URL, Email) e LImitar username
-+ Criar Seed e Migration com Knex e saber executar
++ Validar entradasr (URL, Email) e Limitar username [x]
++ Criar Seed e Migration com Knex e saber executar [x]
 + Testse unitários com JEST para a API
-+ CYpress no front-end
++ Cypress no front-end
 
 ===========
 
