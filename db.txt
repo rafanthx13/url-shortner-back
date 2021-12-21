@@ -152,3 +152,12 @@ FUNCIONA ESSE
  knex seed:make seed_name
 
 npx knex seed:make seed_user --knexfile src/db/knexfile.js
+
+
+=========
+
+cosnign in windows 
+https://cursos.alura.com.br/forum/topico-aplicacao-em-node-js-nao-sobe-por-erro-no-consign-51543
+usar '\\'
+
+https://qastack.com.br/programming/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server

@@ -3,7 +3,10 @@ const consign = require('consign');
 const db = require('./db/connection.js');
 app.db = db;
 
-consign({ cwd: process.cwd() + '/src', verbose: false })
+var os = require('os');
+separator = os.platform().startsWith('win') ? '\\' : '/'
+
+consign({ cwd: process.cwd() + separator + 'src', verbose: false })
   .include('./config/middlewares.js')
   .then('./env/env.config.js')
   .then('./config/passport.js')
