@@ -2,6 +2,8 @@ const express = require('express');
 
 module.exports = (app) => {
 
+  const { NotAuthorizedError } = app.errors.messages;
+
   const router = express.Router();
 
   router.get('/', app.config.passport.authenticate(), (req, res, next) => {
@@ -30,7 +32,18 @@ module.exports = (app) => {
       .catch(err => next(err) );
   });
 
-  router.post('/', app.config.passport.authenticate(), (req, res, next) => {
+  // anonymous post
+  router.post('/', (req, res, next) => {
+    let user_id = ''
+    if(req.user)
+      user_id = req.user.user_id
+    app.services.url.save(req.body, user_id)
+      .then(result => res.status(201).json(result))
+      .catch(err => next(err) );
+  });
+
+  // authentcate post
+  router.post('/private-url', app.config.passport.authenticate(), (req, res, next) => {
     let user_id = ''
     if(req.user)
       user_id = req.user.user_id
