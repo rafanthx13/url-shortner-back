@@ -1,6 +1,8 @@
 let environment = process.NODE_ENV || 'development'
 
-const dotenv = require('dotenv').config({path: './src/env/env_' + environment + '.env'});
+if(environment == 'development'){
+  let dotenv = require('dotenv').config({path: './src/env/env_' + 'development' + '.env'});
+}
 
 module.exports = {
   API_SECRET:   process.env.API_SECRET,
